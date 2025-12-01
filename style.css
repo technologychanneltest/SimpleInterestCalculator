@@ -4,14 +4,55 @@
     box-sizing: border-box;
 }
 
+:root {
+    /* Light theme colors */
+    --bg-gradient-start: #667eea;
+    --bg-gradient-end: #764ba2;
+    --card-bg: white;
+    --text-primary: #333;
+    --text-secondary: #666;
+    --text-tertiary: #555;
+    --input-border: #e0e0e0;
+    --input-border-focus: #667eea;
+    --input-shadow: rgba(102, 126, 234, 0.1);
+    --result-bg-start: #f5f7fa;
+    --result-bg-end: #c3cfe2;
+    --result-border: rgba(0, 0, 0, 0.1);
+    --result-border-total: #667eea;
+    --result-value: #667eea;
+    --result-total-value: #764ba2;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+}
+
+body.dark-theme {
+    /* Dark theme colors */
+    --bg-gradient-start: #1a1a2e;
+    --bg-gradient-end: #16213e;
+    --card-bg: #2d2d44;
+    --text-primary: #e0e0e0;
+    --text-secondary: #b0b0b0;
+    --text-tertiary: #c0c0c0;
+    --input-border: #404060;
+    --input-border-focus: #667eea;
+    --input-shadow: rgba(102, 126, 234, 0.2);
+    --result-bg-start: #3a3a5a;
+    --result-bg-end: #2d2d44;
+    --result-border: rgba(255, 255, 255, 0.1);
+    --result-border-total: #667eea;
+    --result-value: #8fa3ff;
+    --result-total-value: #a78bfa;
+    --shadow-color: rgba(0, 0, 0, 0.5);
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 20px;
+    transition: background 0.3s ease;
 }
 
 .container {
@@ -20,11 +61,44 @@ body {
 }
 
 .calculator-card {
-    background: white;
+    background: var(--card-bg);
     border-radius: 20px;
     padding: 40px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 20px 60px var(--shadow-color);
     animation: slideIn 0.5s ease-out;
+    position: relative;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.theme-toggle-container {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.theme-toggle {
+    background: var(--card-bg);
+    border: 2px solid var(--input-border);
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px var(--shadow-color);
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1);
+    border-color: var(--input-border-focus);
+    box-shadow: 0 4px 15px var(--shadow-color);
+}
+
+.theme-toggle:active {
+    transform: scale(0.95);
 }
 
 @keyframes slideIn {
@@ -39,17 +113,19 @@ body {
 }
 
 h1 {
-    color: #333;
+    color: var(--text-primary);
     text-align: center;
     margin-bottom: 10px;
     font-size: 2rem;
+    transition: color 0.3s ease;
 }
 
 .subtitle {
     text-align: center;
-    color: #666;
+    color: var(--text-secondary);
     margin-bottom: 30px;
     font-size: 0.95rem;
+    transition: color 0.3s ease;
 }
 
 .input-group {
@@ -59,28 +135,31 @@ h1 {
 label {
     display: block;
     margin-bottom: 8px;
-    color: #333;
+    color: var(--text-primary);
     font-weight: 600;
     font-size: 0.95rem;
+    transition: color 0.3s ease;
 }
 
 input[type="number"] {
     width: 100%;
     padding: 12px 15px;
-    border: 2px solid #e0e0e0;
+    border: 2px solid var(--input-border);
     border-radius: 10px;
     font-size: 1rem;
     transition: all 0.3s ease;
     outline: none;
+    background: var(--card-bg);
+    color: var(--text-primary);
 }
 
 input[type="number"]:focus {
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    border-color: var(--input-border-focus);
+    box-shadow: 0 0 0 3px var(--input-shadow);
 }
 
 input[type="number"]:hover {
-    border-color: #667eea;
+    border-color: var(--input-border-focus);
 }
 
 .calculate-btn, .reset-btn {
@@ -118,9 +197,10 @@ input[type="number"]:hover {
 .result-container {
     margin-top: 30px;
     padding: 25px;
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    background: linear-gradient(135deg, var(--result-bg-start) 0%, var(--result-bg-end) 100%);
     border-radius: 15px;
     animation: fadeIn 0.5s ease-out;
+    transition: background 0.3s ease;
 }
 
 @keyframes fadeIn {
@@ -133,10 +213,11 @@ input[type="number"]:hover {
 }
 
 .result-container h2 {
-    color: #333;
+    color: var(--text-primary);
     margin-bottom: 20px;
     font-size: 1.5rem;
     text-align: center;
+    transition: color 0.3s ease;
 }
 
 .result-item {
@@ -144,7 +225,8 @@ input[type="number"]:hover {
     justify-content: space-between;
     align-items: center;
     padding: 12px 0;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid var(--result-border);
+    transition: border-color 0.3s ease;
 }
 
 .result-item:last-child {
@@ -154,28 +236,30 @@ input[type="number"]:hover {
 .result-item.total {
     margin-top: 10px;
     padding-top: 20px;
-    border-top: 2px solid #667eea;
+    border-top: 2px solid var(--result-border-total);
     font-size: 1.2rem;
 }
 
 .result-label {
-    color: #555;
+    color: var(--text-tertiary);
     font-weight: 500;
+    transition: color 0.3s ease;
 }
 
 .result-item.total .result-label {
     font-weight: 700;
-    color: #333;
+    color: var(--text-primary);
 }
 
 .result-value {
-    color: #667eea;
+    color: var(--result-value);
     font-weight: 700;
     font-size: 1.1rem;
+    transition: color 0.3s ease;
 }
 
 .result-item.total .result-value {
-    color: #764ba2;
+    color: var(--result-total-value);
     font-size: 1.3rem;
 }
 
@@ -195,6 +279,17 @@ input[type="number"]:hover {
     
     .result-container {
         padding: 20px 15px;
+    }
+    
+    .theme-toggle-container {
+        top: 15px;
+        right: 15px;
+    }
+    
+    .theme-toggle {
+        width: 40px;
+        height: 40px;
+        font-size: 1.3rem;
     }
 }
 

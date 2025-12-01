@@ -5,6 +5,8 @@ const rateInput = document.getElementById('rate');
 const timeInput = document.getElementById('time');
 const resultContainer = document.getElementById('result');
 const resetBtn = document.getElementById('resetBtn');
+const themeToggle = document.getElementById('themeToggle');
+const themeIcon = themeToggle.querySelector('.theme-icon');
 
 // Result elements
 const resultPrincipal = document.getElementById('resultPrincipal');
@@ -87,4 +89,36 @@ resetBtn.addEventListener('click', function() {
         }
     });
 });
+
+// Theme toggle functionality
+function initTheme() {
+    // Check for saved theme preference or default to light mode
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    applyTheme(savedTheme);
+}
+
+function applyTheme(theme) {
+    const body = document.body;
+    if (theme === 'dark') {
+        body.classList.add('dark-theme');
+        themeIcon.textContent = '☀️';
+        localStorage.setItem('theme', 'dark');
+    } else {
+        body.classList.remove('dark-theme');
+        themeIcon.textContent = '🌙';
+        localStorage.setItem('theme', 'light');
+    }
+}
+
+function toggleTheme() {
+    const body = document.body;
+    const isDark = body.classList.contains('dark-theme');
+    applyTheme(isDark ? 'light' : 'dark');
+}
+
+// Initialize theme on page load
+initTheme();
+
+// Handle theme toggle button click
+themeToggle.addEventListener('click', toggleTheme);
 
